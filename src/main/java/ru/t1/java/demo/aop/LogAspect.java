@@ -2,12 +2,10 @@ package ru.t1.java.demo.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-import ru.t1.java.demo.model.Client;
+import ru.t1.java.demo.entity.ClientEntity;
 
 import java.util.List;
 
@@ -44,7 +42,7 @@ public class LogAspect {
     @AfterReturning(
             pointcut = "@annotation(HandlingResult)",
             returning = "result")
-    public void handleResult(JoinPoint joinPoint, List<Client> result) {
+    public void handleResult(JoinPoint joinPoint, List<ClientEntity> result) {
         log.info("В результате выполнения метода {}", joinPoint.getSignature().toShortString());
 //        log.info("получен результат: {} ", result);
         log.info("Подробности: \n");

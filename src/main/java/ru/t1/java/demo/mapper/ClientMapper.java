@@ -1,24 +1,24 @@
-package ru.t1.java.demo.util;
+package ru.t1.java.demo.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.t1.java.demo.dto.ClientDto;
-import ru.t1.java.demo.model.Client;
+import ru.t1.java.demo.model.ClientDto;
+import ru.t1.java.demo.entity.ClientEntity;
 
 @Component
 public class ClientMapper {
 
-    public static Client toEntity(ClientDto dto) {
+    public static ClientEntity toEntity(ClientDto dto) {
         if (dto.getMiddleName() == null) {
 //            throw new NullPointerException();
         }
-        return Client.builder()
+        return ClientEntity.builder()
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .middleName(dto.getMiddleName())
                 .build();
     }
 
-    public static ClientDto toDto(Client entity) {
+    public static ClientDto toDto(ClientEntity entity) {
         return ClientDto.builder()
                 .id(entity.getId())
                 .firstName(entity.getFirstName())

@@ -14,4 +14,28 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
         <rollback/>
     </changeSet>
 
+    <changeSet id="create-account-table" author="AStolyarov">
+        <sqlFile encoding="utf8" path="db/changelog/2024.11/create-account.sql"/>
+    </changeSet>
+
+    <changeSet id="create-data-source-error-log-table" author="AStolyarov">
+        <sqlFile encoding="utf8" path="db/changelog/2024.11/create-data-source-error-log.sql"/>
+    </changeSet>
+
+    <changeSet id="create-transaction-table" author="AStolyarov">
+        <sqlFile encoding="utf8" path="db/changelog/2024.11/create-transaction.sql"/>
+    </changeSet>
+
+    <changeSet id="create-client-base" author="AStolyarov">
+        <sqlFile encoding="utf8" path="Clients.sql"/>
+    </changeSet>
+
+    <changeSet id="create-account-base" author="AStolyarov">
+        <sqlFile encoding="utf8" path="Accounts.sql"/>
+    </changeSet>
+
+    <changeSet id="create-transaction-base" author="AStolyarov">
+        <sqlFile encoding="utf8" path="Transactions.sql"/>
+    </changeSet>
+
 </databaseChangeLog>

@@ -1,0 +1,10 @@
+-- liquibase formatted sql
+
+-- changeset a_stol:1726434397331-1
+CREATE TABLE IF NOT EXISTS transaction (
+id BIGSERIAL PRIMARY KEY,
+account_id BIGINT NOT NULL,
+amount BIGINT NOT NULL,
+time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (account_id) REFERENCES account (id) ON DELETE CASCADE
+);
