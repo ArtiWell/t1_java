@@ -25,3 +25,21 @@ logging:
 
 t1:
   scan-path: ru.t1.java.demo
+  kafka:
+    bootstrap:
+      server: ${KAFKA_SERVER:localhost:9092}
+    consumer:
+      group-id: t1-demo
+    topic:
+      metrics: t1_demo_metrics
+      data-source-error: t1_demo_data_source_error
+      time-limit-exceed: t1_demo_time_limit_exceed
+      transaction: t1_demo_transactions
+      account: t1_demo_accounts
+
+management:
+  endpoints:
+    web.exposure.include: health, prometheus, metrics
+  endpoint:
+    health:
+      show-details: always
