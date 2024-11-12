@@ -30,13 +30,9 @@ public class ClientServiceImpl implements ClientService {
         } catch (IOException e) {
             log.error("Ошибка во время обработки записей", e);
         }
-//        repository.saveAll(clients);
     }
 
     @Override
-//    @LogExecution
-//    @Track
-//    @HandlingResult
     public List<ClientEntity> parseJson() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
