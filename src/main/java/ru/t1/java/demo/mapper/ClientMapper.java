@@ -1,7 +1,7 @@
 package ru.t1.java.demo.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.t1.java.demo.model.ClientDto;
+import ru.t1.java.demo.model.dto.ClientDto;
 import ru.t1.java.demo.entity.ClientEntity;
 
 @Component

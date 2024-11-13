@@ -16,17 +16,21 @@ public interface TransactionMapper {
     TransactionMapper TRANSACTION_MAPPER = Mappers.getMapper(TransactionMapper.class);
 
 
-    @Mapping(target = "accountId", source = "entity.account.id")
+    @Mapping(target = "accountId", source = "entity.account.accountId")
     @Mapping(target = "amount", source = "amount")
     @Mapping(target = "time", source = "time")
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "transactionId", source = "transactionId")
+    @Mapping(target = "status", source = "status")
     TransactionResponse toResponse(TransactionEntity entity);
 
 
     @Mapping(target = "account", source = "account")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "transactionId", ignore = true)
     @Mapping(target = "amount", source = "request.amount")
     @Mapping(target = "time", ignore = true)
+    @Mapping(target = "status", source = "request.status")
     TransactionEntity toEntity(TransactionRequest request, AccountEntity account);
 
 
