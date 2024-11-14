@@ -1,22 +1,21 @@
+server:
+  port: 8081
 spring:
+  application:
+    name: service2
   jpa:
     show-sql: true
-
   properties:
     hibernate:
       format_sql: true
-
-
-  application:
-    name: service1
   datasource:
     url: "jdbc:postgresql://localhost:5432/t1_demo"
     username: "postgres"
     password: "0000"
     driverClassName: org.postgresql.Driver
   liquibase:
-    enabled: true
-    change-log: db/changelog/db.changelog-master.xml
+    enabled: false
+
 
 logging:
   level:
@@ -29,7 +28,7 @@ t1:
     bootstrap:
       server: ${KAFKA_SERVER:localhost:9092}
     consumer:
-      group-id: t1-demo-service1
+      group-id: t1-demo-service2
     topic:
       metrics: t1_demo_metrics
       data-source-error: t1_demo_data_source_error
@@ -39,9 +38,16 @@ t1:
       transaction_accept: t1_demo_transaction_accept
       transaction_result: t1_demo_transaction_result
 
+transaction:
+  processing:
+    time-window-millis: 600000
+    threshold: 5
+
 management:
   endpoints:
-    web.exposure.include: health, prometheus, metrics
+    web:
+      exposure:
+        include: health, prometheus, metrics
   endpoint:
     health:
       show-details: always

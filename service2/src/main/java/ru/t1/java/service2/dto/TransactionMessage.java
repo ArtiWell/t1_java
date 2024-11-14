@@ -1,7 +1,6 @@
-package ru.t1.java.demo.model.dto;
+package ru.t1.java.service2.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.time.Instant;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -16,7 +16,7 @@ import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.util.backoff.FixedBackOff;
-import ru.t1.java.demo.model.dto.TransactionMessage;
+import ru.t1.java.demo.model.dto.TransactionMessageDTO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +84,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ProducerFactory<String, TransactionMessage> transactionMessageProducerFactory() {
+    public ProducerFactory<String, TransactionMessageDTO> transactionMessageProducerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -93,7 +93,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, TransactionMessage> transactionMessageKafkaTemplate() {
+    public KafkaTemplate<String, TransactionMessageDTO> transactionMessageKafkaTemplate() {
         return new KafkaTemplate<>(transactionMessageProducerFactory());
     }
 

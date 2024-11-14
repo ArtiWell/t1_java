@@ -15,7 +15,7 @@ import ru.t1.java.demo.entity.TransactionEntity;
 import ru.t1.java.demo.exception.EntityNotFoundException;
 import ru.t1.java.demo.model.TransactionRequest;
 import ru.t1.java.demo.model.TransactionResponse;
-import ru.t1.java.demo.model.dto.TransactionMessage;
+import ru.t1.java.demo.model.dto.TransactionMessageDTO;
 import ru.t1.java.demo.repository.AccountRepository;
 import ru.t1.java.demo.repository.TransactionRepository;
 
@@ -28,7 +28,7 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
-    private final KafkaTemplate<String, TransactionMessage> kafkaTemplate;
+    private final KafkaTemplate<String, TransactionMessageDTO> kafkaTemplate;
 
 
     public Page<TransactionResponse> getAllTransaction(Pageable pageable) {
@@ -58,7 +58,7 @@ public class TransactionService {
     }
 
     private void sendTransactionAcceptMessage(AccountEntity account, TransactionEntity transaction) {
-        TransactionMessage message = new TransactionMessage(
+        TransactionMessageDTO message = new TransactionMessageDTO(
                 account.getClient().getId(),
                 account.getId(),
                 transaction.getId(),
