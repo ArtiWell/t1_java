@@ -45,5 +45,4 @@ public class AccountEntity {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<TransactionEntity> transactions = new ArrayList<>();
 
-
 }
