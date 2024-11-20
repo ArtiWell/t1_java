@@ -1,13 +1,12 @@
 package ru.t1.java.demo.service;
 
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.t1.java.demo.exception.EntityNotFoundException;
-import ru.t1.java.demo.model.dto.ClientDto;
 import ru.t1.java.demo.entity.ClientEntity;
-import ru.t1.java.demo.repository.ClientRepository;
+import ru.t1.java.demo.exception.EntityNotFoundException;
 import ru.t1.java.demo.mapper.ClientMapper;
+import ru.t1.java.demo.model.dto.ClientDto;
+import ru.t1.java.demo.repository.ClientRepository;
 
 import java.util.HashMap;
 import java.util.Map;
