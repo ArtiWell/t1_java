@@ -3,7 +3,8 @@ package ru.t1.java.demo.service;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.t1.java.demo.model.ClientDto;
+import ru.t1.java.demo.exception.EntityNotFoundException;
+import ru.t1.java.demo.model.dto.ClientDto;
 import ru.t1.java.demo.entity.ClientEntity;
 import ru.t1.java.demo.repository.ClientRepository;
 import ru.t1.java.demo.mapper.ClientMapper;
@@ -22,10 +23,10 @@ public class LegacyClientService {
         this.cache = new HashMap<>();
     }
 
-    @PostConstruct
-    void init() {
-        getClient(1L);
-    }
+//    @PostConstruct
+//    void init() {
+//        getClient(1L);
+//    }
 
     public ClientDto getClient(Long id) {
         log.debug("Call method getClient with id {}", id);
@@ -36,7 +37,9 @@ public class LegacyClientService {
         }
 
         try {
-            ClientEntity entity = repository.findById(id).get();
+            ClientEntity entity = repository.findById(id).orElseThrow(
+                    () -> new EntityNotFoundException("Client not found with id " + id)
+            );
             clientDto = ClientMapper.toDto(entity);
             cache.put(id, entity);
         } catch (Exception e) {

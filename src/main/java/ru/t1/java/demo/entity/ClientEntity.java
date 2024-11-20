@@ -17,6 +17,9 @@ import java.util.List;
 @Table(name = "client")
 public class ClientEntity extends AbstractPersistable<Long> {
 
+    @Column(name = "client_id", unique = true, nullable = false)
+    private String clientId;
+
     @Column(name = "first_name")
     private String firstName;
 

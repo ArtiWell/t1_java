@@ -16,6 +16,7 @@ import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.util.backoff.FixedBackOff;
+import ru.t1.java.demo.model.dto.TransactionMessageDTO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class KafkaConfig {
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
@@ -59,7 +60,7 @@ public class KafkaConfig {
 
     @Bean
     public CommonErrorHandler errorHandler() {
-        DefaultErrorHandler handler = new DefaultErrorHandler(new FixedBackOff(1000L, 3L)); // задержка 1 сек, 3 попытки
+        DefaultErrorHandler handler = new DefaultErrorHandler(new FixedBackOff(1000L, 3L));
         handler.addNotRetryableExceptions(IllegalStateException.class);
         handler.setRetryListeners((record, ex, deliveryAttempt) ->
                 log.error("Ошибка обработки сообщения с offset = {} на попытке {}: {}", record.offset(), deliveryAttempt, ex.getMessage()));
@@ -71,7 +72,7 @@ public class KafkaConfig {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.RETRIES_CONFIG, 3);
         props.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 1000);
         return new DefaultKafkaProducerFactory<>(props);
@@ -82,4 +83,19 @@ public class KafkaConfig {
     public KafkaTemplate<String, String> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
+
+    @Bean
+    public ProducerFactory<String, TransactionMessageDTO> transactionMessageProducerFactory() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        return new DefaultKafkaProducerFactory<>(props);
+    }
+
+    @Bean
+    public KafkaTemplate<String, TransactionMessageDTO> transactionMessageKafkaTemplate() {
+        return new KafkaTemplate<>(transactionMessageProducerFactory());
+    }
+
 }

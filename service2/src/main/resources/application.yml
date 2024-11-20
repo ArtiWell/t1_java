@@ -1,0 +1,53 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: service2
+  jpa:
+    show-sql: true
+  properties:
+    hibernate:
+      format_sql: true
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/t1_demo"
+    username: "postgres"
+    password: "0000"
+    driverClassName: org.postgresql.Driver
+  liquibase:
+    enabled: false
+
+
+logging:
+  level:
+    ROOT: INFO
+    ru.t1.java.demo.controller.ClientController: DEBUG
+
+t1:
+  scan-path: ru.t1.java.demo
+  kafka:
+    bootstrap:
+      server: ${KAFKA_SERVER:localhost:9092}
+    consumer:
+      group-id: t1-demo-service2
+    topic:
+      metrics: t1_demo_metrics
+      data-source-error: t1_demo_data_source_error
+      time-limit-exceed: t1_demo_time_limit_exceed
+      transaction: t1_demo_transactions
+      account: t1_demo_accounts
+      transaction_accept: t1_demo_transaction_accept
+      transaction_result: t1_demo_transaction_result
+
+transaction:
+  processing:
+    time-window-millis: 600000
+    threshold: 5
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus, metrics
+  endpoint:
+    health:
+      show-details: always

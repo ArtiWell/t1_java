@@ -39,7 +39,13 @@ public class KafkaAccountTransactionConsumer {
             List<AccountEntity> accounts = messages.stream()
                     .map(msg -> {
                         try {
-                            return objectMapper.readValue(msg, AccountEntity.class);
+                            AccountEntity account = objectMapper.readValue(msg, AccountEntity.class);
+
+                            if (account.getAccountId() == null || account.getStatus() == null) {
+                                log.warn("Получено сообщение без accountId или статуса: {}", msg);
+                                return null;
+                            }
+                            return account;
                         } catch (IOException e) {
                             log.error("Ошибка при десериализации AccountEntity: {}", e.getMessage());
                             return null;
@@ -65,7 +71,13 @@ public class KafkaAccountTransactionConsumer {
             List<TransactionEntity> transactions = messages.stream()
                     .map(msg -> {
                         try {
-                            return objectMapper.readValue(msg, TransactionEntity.class);
+                            TransactionEntity transaction = objectMapper.readValue(msg, TransactionEntity.class);
+
+                            if (transaction.getTransactionId() == null || transaction.getStatus() == null) {
+                                log.warn("Получено сообщение без transactionId или статуса: {}", msg);
+                                return null;
+                            }
+                            return transaction;
                         } catch (IOException e) {
                             log.error("Ошибка при десериализации TransactionEntity: {}", e.getMessage());
                             return null;

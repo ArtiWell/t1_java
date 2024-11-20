@@ -3,6 +3,7 @@ package ru.t1.java.demo.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
+import ru.t1.java.demo.emums.AccountStatus;
 import ru.t1.java.demo.emums.AccountType;
 
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ public class AccountEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "account_id", unique = true, nullable = false)
+    private String accountId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private ClientEntity client;
@@ -26,8 +30,15 @@ public class AccountEntity {
     @Column(name = "account_type", nullable = false)
     private AccountType accountType;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private AccountStatus status;
+
     @Column(name = "balance", nullable = false)
     private Long balance;
+
+    @Column(name = "frozen_amount", nullable = false)
+    private Long frozenAmount = 0L;
 
     @BatchSize(size = 10)
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
