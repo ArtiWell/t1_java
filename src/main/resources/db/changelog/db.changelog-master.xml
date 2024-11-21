@@ -26,6 +26,10 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
         <sqlFile encoding="utf8" path="db/changelog/2024.11/create-transaction.sql"/>
     </changeSet>
 
+    <changeSet id="create-transaction-table" author="AStolyarov">
+        <sqlFile encoding="utf8" path="/db/changelog/2024/09/16-01-changelog-03.sql"/>
+    </changeSet>
+
 <!--    <changeSet id="create-client-base" author="AStolyarov">-->
 <!--        <sqlFile encoding="utf8" path="Clients.sql"/>-->
 <!--    </changeSet>-->

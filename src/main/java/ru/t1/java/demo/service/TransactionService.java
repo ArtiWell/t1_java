@@ -13,11 +13,11 @@ import ru.t1.java.demo.emums.TransactionStatus;
 import ru.t1.java.demo.entity.AccountEntity;
 import ru.t1.java.demo.entity.TransactionEntity;
 import ru.t1.java.demo.exception.EntityNotFoundException;
-import ru.t1.java.demo.model.TransactionRequest;
-import ru.t1.java.demo.model.TransactionResponse;
+import ru.t1.java.demo.model.reqest.TransactionRequest;
+import ru.t1.java.demo.model.response.TransactionResponse;
 import ru.t1.java.demo.model.dto.TransactionMessageDTO;
-import ru.t1.java.demo.repository.AccountRepository;
-import ru.t1.java.demo.repository.TransactionRepository;
+import ru.t1.java.demo.dao.persistence.AccountRepository;
+import ru.t1.java.demo.dao.persistence.TransactionRepository;
 
 import static ru.t1.java.demo.mapper.TransactionMapper.TRANSACTION_MAPPER;
 
@@ -49,6 +49,7 @@ public class TransactionService {
 
         account.setBalance(account.getBalance() + transactionRequest.amount());
         TransactionEntity transaction = TRANSACTION_MAPPER.toEntity(transactionRequest, account);
+
         transaction.setStatus(TransactionStatus.REQUESTED);
         transactionRepository.save(transaction);
 

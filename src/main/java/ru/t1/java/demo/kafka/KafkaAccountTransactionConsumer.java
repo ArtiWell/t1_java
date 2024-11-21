@@ -3,7 +3,6 @@ package ru.t1.java.demo.kafka;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -12,8 +11,8 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import ru.t1.java.demo.entity.AccountEntity;
 import ru.t1.java.demo.entity.TransactionEntity;
-import ru.t1.java.demo.repository.AccountRepository;
-import ru.t1.java.demo.repository.TransactionRepository;
+import ru.t1.java.demo.dao.persistence.AccountRepository;
+import ru.t1.java.demo.dao.persistence.TransactionRepository;
 
 import java.io.IOException;
 import java.util.List;

@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.java.demo.model.TransactionRequest;
-import ru.t1.java.demo.model.TransactionResponse;
+import ru.t1.java.demo.model.reqest.TransactionRequest;
+import ru.t1.java.demo.model.response.TransactionResponse;
 import ru.t1.java.demo.service.TransactionService;
 
 @RestController

@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import ru.t1.java.demo.entity.DataSourceErrorLogEntity;
-import ru.t1.java.demo.repository.DataSourceErrorLogRepository;
+import ru.t1.java.demo.dao.persistence.DataSourceErrorLogRepository;
 
 import java.util.UUID;
 

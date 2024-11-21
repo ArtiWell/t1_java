@@ -12,8 +12,8 @@ import ru.t1.java.demo.emums.AccountStatus;
 import ru.t1.java.demo.emums.TransactionStatus;
 import ru.t1.java.demo.entity.AccountEntity;
 import ru.t1.java.demo.entity.TransactionEntity;
-import ru.t1.java.demo.repository.AccountRepository;
-import ru.t1.java.demo.repository.TransactionRepository;
+import ru.t1.java.demo.dao.persistence.AccountRepository;
+import ru.t1.java.demo.dao.persistence.TransactionRepository;
 
 
 import java.io.IOException;

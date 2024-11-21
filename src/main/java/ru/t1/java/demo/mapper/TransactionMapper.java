@@ -1,14 +1,13 @@
 package ru.t1.java.demo.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.MapperConfig;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import ru.t1.java.demo.entity.AccountEntity;
 import ru.t1.java.demo.entity.TransactionEntity;
-import ru.t1.java.demo.model.TransactionRequest;
-import ru.t1.java.demo.model.TransactionResponse;
+import ru.t1.java.demo.model.reqest.TransactionRequest;
+import ru.t1.java.demo.model.response.TransactionResponse;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface TransactionMapper {

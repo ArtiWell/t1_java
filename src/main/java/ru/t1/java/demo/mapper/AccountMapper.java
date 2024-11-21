@@ -6,8 +6,8 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import ru.t1.java.demo.entity.AccountEntity;
 import ru.t1.java.demo.entity.ClientEntity;
-import ru.t1.java.demo.model.AccountRequest;
-import ru.t1.java.demo.model.AccountResponse;
+import ru.t1.java.demo.model.reqest.AccountRequest;
+import ru.t1.java.demo.model.response.AccountResponse;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface AccountMapper {

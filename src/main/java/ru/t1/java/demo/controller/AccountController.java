@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.java.demo.model.AccountRequest;
-import ru.t1.java.demo.model.AccountResponse;
+import ru.t1.java.demo.model.reqest.AccountRequest;
+import ru.t1.java.demo.model.response.AccountResponse;
 import ru.t1.java.demo.service.AccountService;
 
 @RestController
