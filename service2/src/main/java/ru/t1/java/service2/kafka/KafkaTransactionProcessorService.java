@@ -51,6 +51,7 @@ public class KafkaTransactionProcessorService {
         }
     }
 
+
     private void sendTransactionResult(TransactionMessage transactionMessage, TransactionStatus status) {
         TransactionResultMessage resultMessage = new TransactionResultMessage(
                 transactionMessage.clientId(),
