@@ -10,7 +10,7 @@ public class RestConfig {
     @Bean
     public RestClient restClient() {
         return RestClient.builder()
-                .baseUrl("http://localhost/api")
+                .baseUrl("http://localhost:8081/api")
                 .build();
     }
 

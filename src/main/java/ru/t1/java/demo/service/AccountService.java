@@ -33,11 +33,9 @@ public class AccountService {
                 ()-> new EntityNotFoundException("Client with ID "+accountRequest.clientId()+" not found")
         );
         AccountEntity account = ACCOUNT_MAPPER.toEntity(accountRequest,client);
-        boolean isBlocked = restClient.isBlocked(account.getId());
-        if (isBlocked){
+        if (account.getClient().isBlocked()){
             account.setStatus(AccountStatus.BLOCKED);
         }
-
         accountRepository.save(account);
         return ACCOUNT_MAPPER.toResponse(account);
     }

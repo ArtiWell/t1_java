@@ -45,3 +45,5 @@ management:
   endpoint:
     health:
       show-details: always
+transaction:
+  reject-threshold: 3

@@ -53,12 +53,11 @@ public class ClientServiceImpl implements ClientService {
         client.setFirstName(clientRequest.firstName());
         client.setLastName(clientRequest.lastName());
         client.setMiddleName(clientRequest.middleName());
-        boolean isBlocked = restClient.isBlocked(client.getId());
-        if (isBlocked) {
-            client.setBlocked(true);
-        }
         repository.save(client);
-        return ClientMapper.toDto(client);
+        ClientDto clientDto = ClientMapper.toDto(client);
+        restClient.createdClient(clientDto);
+        return clientDto;
+
     }
 
 }

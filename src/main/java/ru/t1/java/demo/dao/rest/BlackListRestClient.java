@@ -1,5 +1,7 @@
 package ru.t1.java.demo.dao.rest;
 
+import ru.t1.java.demo.model.dto.ClientDto;
+
 public interface BlackListRestClient {
-    boolean isBlocked(Long id);
+    void createdClient(ClientDto clientDto);
 }

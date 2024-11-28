@@ -17,8 +17,10 @@ import java.util.List;
 @Table(name = "client")
 public class ClientEntity extends AbstractPersistable<Long> {
 
+
+
     @Column(name = "client_id", unique = true, nullable = false)
-    private String clientId;
+    private Long clientId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -28,6 +30,9 @@ public class ClientEntity extends AbstractPersistable<Long> {
 
     @Column(name = "middle_name")
     private String middleName;
+
+    @Column(name = "is_black_list")
+    private boolean isBlackList;
 
     @BatchSize(size = 10)
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

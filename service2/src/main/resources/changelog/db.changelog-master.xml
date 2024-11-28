@@ -1,0 +1,16 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet id="create-client-table" author="AStolyarov">
+        <sqlFile encoding="utf8" path="/db/changelog/11/26-01-changelog-01.sql"/>
+    </changeSet>
+    <changeSet id="create-client-table" author="AStolyarov">
+        <sqlFile encoding="utf8" path="/db/changelog/11/26-01-changelog-02.sql"/>
+    </changeSet>
+
+
+</databaseChangeLog>
