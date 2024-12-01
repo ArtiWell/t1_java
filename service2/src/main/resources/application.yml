@@ -16,6 +16,9 @@ spring:
   liquibase:
     enabled: false
 
+jwt:
+  secret: "secret-key"
+  expiration: 3600000
 
 logging:
   level:
