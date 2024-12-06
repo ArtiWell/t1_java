@@ -15,6 +15,7 @@ public class ClientMapper {
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .middleName(dto.getMiddleName())
+                .isBlocked(false)
                 .build();
     }
 

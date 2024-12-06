@@ -45,3 +45,8 @@ management:
   endpoint:
     health:
       show-details: always
+transaction:
+  reject-threshold: 3
+jwt:
+  secret: "secret-key"
+  expiration: 3600000

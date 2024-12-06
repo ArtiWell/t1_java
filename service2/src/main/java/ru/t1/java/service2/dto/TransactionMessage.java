@@ -12,3 +12,4 @@ public record TransactionMessage(
         Long amount,
         Long balance
 ) {}
+

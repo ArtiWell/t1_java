@@ -4,4 +4,5 @@ public record TransactionResultMessage(
         Long clientId,
         Long accountId,
         Long transactionId,
-        String status) {}
+        String status
+) {}

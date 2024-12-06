@@ -5,9 +5,12 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.t1.java.demo.dao.rest.BlackListRestClient;
 import ru.t1.java.demo.model.dto.ClientDto;
 import ru.t1.java.demo.entity.ClientEntity;
-import ru.t1.java.demo.repository.ClientRepository;
+import ru.t1.java.demo.model.reqest.ClientRequest;
+import ru.t1.java.demo.model.response.ClientResponse;
+import ru.t1.java.demo.dao.persistence.ClientRepository;
 import ru.t1.java.demo.service.ClientService;
 import ru.t1.java.demo.mapper.ClientMapper;
 
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository repository;
+    private final BlackListRestClient restClient;
 
     @PostConstruct
     void init() {
@@ -42,4 +46,18 @@ public class ClientServiceImpl implements ClientService {
                 .map(ClientMapper::toEntity)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ClientDto createdClient(ClientRequest clientRequest) {
+        ClientEntity client = new ClientEntity();
+        client.setFirstName(clientRequest.firstName());
+        client.setLastName(clientRequest.lastName());
+        client.setMiddleName(clientRequest.middleName());
+        repository.save(client);
+        ClientDto clientDto = ClientMapper.toDto(client);
+        restClient.createdClient(clientDto);
+        return clientDto;
+
+    }
+
 }

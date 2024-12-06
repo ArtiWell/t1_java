@@ -3,13 +3,12 @@ package ru.t1.java.demo.aop;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import ru.t1.java.demo.entity.DataSourceErrorLogEntity;
-import ru.t1.java.demo.repository.DataSourceErrorLogRepository;
+import ru.t1.java.demo.dao.persistence.DataSourceErrorLogRepository;
 
 
 @SpringBootTest
