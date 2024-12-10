@@ -50,3 +50,6 @@ transaction:
 jwt:
   secret: "secret-key"
   expiration: 3600000
+integration:
+  url: http://localhost:8081
+  resource: /bsc-wire-mock/api/check-client

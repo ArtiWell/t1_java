@@ -13,7 +13,8 @@ import ru.t1.java.demo.model.response.AccountResponse;
 public interface AccountMapper {
     AccountMapper ACCOUNT_MAPPER = Mappers.getMapper(AccountMapper.class);
 
-    @Mapping(target = "clientId", source = "entity.client.id")
+    @Mapping(target = "clientId", source = "entity.client.clientId")
+//    @Mapping(target = "clientId", expression = "java(entity.getClient().getClientId())")
     @Mapping(target = "id", source = "id")
     @Mapping(target = "accountId", source = "accountId")
     @Mapping(target = "accountType", source = "accountType")
