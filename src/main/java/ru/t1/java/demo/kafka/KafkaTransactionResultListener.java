@@ -42,9 +42,10 @@ public class KafkaTransactionResultListener {
             Optional<AccountEntity> accountOpt = accountRepository.findById(transaction.getAccount().getId());
             accountOpt.ifPresent(account -> processTransactionByStatus(transaction, account));
 
-            ack.acknowledge();
         } catch (IOException e) {
             log.error("Ошибка при десериализации TransactionEntity: {}", e.getMessage());
+        } finally {
+            ack.acknowledge();
         }
     }
 

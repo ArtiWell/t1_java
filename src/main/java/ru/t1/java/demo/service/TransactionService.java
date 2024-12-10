@@ -2,6 +2,7 @@ package ru.t1.java.demo.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,20 +10,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
+import ru.t1.java.demo.dao.persistence.AccountRepository;
+import ru.t1.java.demo.dao.persistence.TransactionRepository;
 import ru.t1.java.demo.emums.AccountStatus;
 import ru.t1.java.demo.emums.TransactionStatus;
 import ru.t1.java.demo.entity.AccountEntity;
 import ru.t1.java.demo.entity.TransactionEntity;
 import ru.t1.java.demo.exception.EntityNotFoundException;
+import ru.t1.java.demo.model.dto.TransactionMessageDTO;
 import ru.t1.java.demo.model.reqest.TransactionRequest;
 import ru.t1.java.demo.model.response.TransactionResponse;
-import ru.t1.java.demo.model.dto.TransactionMessageDTO;
-import ru.t1.java.demo.dao.persistence.AccountRepository;
-import ru.t1.java.demo.dao.persistence.TransactionRepository;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 import static ru.t1.java.demo.mapper.TransactionMapper.TRANSACTION_MAPPER;
@@ -47,9 +48,6 @@ public class TransactionService {
     private long jwtExpiration;
 
 
-
-
-
     @Transactional
     public TransactionResponse createTransaction(TransactionRequest transactionRequest) {
         AccountEntity account = accountRepository.findById(transactionRequest.accountId())
@@ -61,12 +59,15 @@ public class TransactionService {
 
         boolean isClientBlocked = account.getClient().isBlocked();
 
-        if (!isClientBlocked) {
-            isClientBlocked = checkClientStatus(account.getClient().getId());
-            if (isClientBlocked) {
-                handleBlockedClient(account);
-                return saveRejectedTransaction(account, transactionRequest.amount());
-            }
+        if (isClientBlocked) {
+            handleBlockedClient(account);
+            return saveRejectedTransaction(account, transactionRequest.amount());
+        }
+        isClientBlocked = checkClientStatus(account.getClient().getId());
+
+        if (isClientBlocked) {
+            handleBlockedClient(account);
+            return saveRejectedTransaction(account, transactionRequest.amount());
         }
 
         long rejectedCount = transactionRepository.countByAccountAndStatus(account, TransactionStatus.REJECTED);
@@ -129,11 +130,12 @@ public class TransactionService {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpiration);
 
+        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
         return Jwts.builder()
                 .setSubject("service1")
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
     }
 
@@ -153,15 +155,9 @@ public class TransactionService {
     }
 
 
-
-
-
-
-
-
     public TransactionResponse getTransactionById(Long id) {
         return TRANSACTION_MAPPER.toResponse(transactionRepository.findById(id).orElseThrow(
-                ()-> new EntityNotFoundException("Transaction with ID "+id+" not found")
+                () -> new EntityNotFoundException("Transaction with ID " + id + " not found")
         ));
     }
 
