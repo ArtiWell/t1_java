@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "track.kafka.bootstrap-servers",
+      "type": "java.lang.String",
+      "description": "Kafka bootstrap servers for tracking purposes."
+    },
+    {
+      "name": "track.db.table-name",
+      "type": "java.lang.String",
+      "description": "Name of the database table for tracking logs."
+    },
+    {
+      "name": "track.time-limit-exceed",
+      "type": "java.lang.Long",
+      "description": "Time limit for exceeding tracking."
+    }
+  ]
+}

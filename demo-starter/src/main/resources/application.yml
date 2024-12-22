@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: t1-demo-track-starter
+
+track:
+  time-limit-exceed: 10000
+  errors-to-track: JsonParseException, IOException
+  kafka:
+    enabled: ${TRACK_KAFKA_LOG_ENABLED:false}
+    bootstrap:
+      server: localhost:9092
+    consumer:
+      group-id: t1-demo-track
+      max.poll.records: 10
+    producer:
+      enable: true
+    topic:
+      data-source-error-topic: t1_demo_data_source_error
+      time-limit-exceed: t1_demo_time_limit_exceed
+  db:
+    enabled: ${TRACK_DB_LOG_ENABLED:false}
+    datasource:
+      jdbcUrl: ${spring.datasource.jdbcUrl}
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      driverClassName: ${spring.datasource.driverClassName}
+    liquibase:
+      enabled: true
+      default-schema: ${spring.liquibase.default-schema}
+      change-log: db/changelog/db.changelog-master.xml
+      driver-class-name: ${spring.liquibase.driver-class-name}
+      driverClassName: ${spring.liquibase.driverClassName}
+      url: ${spring.liquibase.url}
+      user: ${spring.liquibase.user}
+      password: ${spring.liquibase.password}
