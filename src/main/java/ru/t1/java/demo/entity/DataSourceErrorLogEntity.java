@@ -25,4 +25,5 @@ public class DataSourceErrorLogEntity {
     @Column(name = "method_signature", nullable = false)
     private String methodSignature;
 
+
 }
